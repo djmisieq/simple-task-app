@@ -6,14 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskCount = document.getElementById('taskCount');
   const clearCompletedBtn = document.getElementById('clearCompleted');
   const filterBtns = document.querySelectorAll('.filter');
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const themeIcon = themeToggleBtn.querySelector('i');
   
   // Stan aplikacji
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   let currentFilter = 'all';
+  let darkMode = localStorage.getItem('darkMode') === 'true';
   
   // Inicjalizacja aplikacji
   renderTasks();
   updateTaskCount();
+  initializeTheme();
   
   // Obsługa wydarzeń
   addTaskBtn.addEventListener('click', addTask);
@@ -41,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
       renderTasks();
     });
   });
+  
+  themeToggleBtn.addEventListener('click', toggleTheme);
   
   // Funkcje
   function addTask() {
@@ -123,5 +129,32 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function saveToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+  
+  function initializeTheme() {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    } else {
+      document.body.classList.remove('dark-mode');
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+    }
+  }
+  
+  function toggleTheme() {
+    darkMode = !darkMode;
+    localStorage.setItem('darkMode', darkMode);
+    
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+    } else {
+      document.body.classList.remove('dark-mode');
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+    }
   }
 });
