@@ -4,26 +4,62 @@
   padding: 0;
 }
 
+:root {
+  --bg-color: #f5f5f5;
+  --container-bg: #fff;
+  --text-color: #333;
+  --heading-color: #2c3e50;
+  --button-color: #3498db;
+  --button-hover: #2980b9;
+  --delete-color: #e74c3c;
+  --delete-hover: #c0392b;
+  --border-color: #ddd;
+  --task-bg: #f9f9f9;
+  --task-hover: #f1f1f1;
+  --completed-text: #888;
+  --stats-color: #777;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {
+  --bg-color: #1a1a1a;
+  --container-bg: #2c2c2c;
+  --text-color: #f0f0f0;
+  --heading-color: #e0e0e0;
+  --button-color: #3498db;
+  --button-hover: #2980b9;
+  --delete-color: #e74c3c;
+  --delete-hover: #c0392b;
+  --border-color: #444;
+  --task-bg: #363636;
+  --task-hover: #404040;
+  --completed-text: #aaa;
+  --stats-color: #bbb;
+  --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--container-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #2c3e50;
+  color: var(--heading-color);
 }
 
 .task-form {
@@ -34,14 +70,17 @@ h1 {
 #taskInput {
   flex: 1;
   padding: 10px 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px 0 0 4px;
   font-size: 16px;
+  background-color: var(--container-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 #addTask {
   padding: 10px 15px;
-  background-color: #3498db;
+  background-color: var(--button-color);
   color: #fff;
   border: none;
   border-radius: 0 4px 4px 0;
@@ -51,7 +90,7 @@ h1 {
 }
 
 #addTask:hover {
-  background-color: #2980b9;
+  background-color: var(--button-hover);
 }
 
 .filters {
@@ -64,16 +103,17 @@ h1 {
   padding: 8px 12px;
   margin: 0 5px;
   background-color: transparent;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
+  color: var(--text-color);
 }
 
 .filter.active {
-  background-color: #3498db;
+  background-color: var(--button-color);
   color: #fff;
-  border-color: #3498db;
+  border-color: var(--button-color);
 }
 
 .task-list {
@@ -85,14 +125,14 @@ h1 {
   display: flex;
   align-items: center;
   padding: 12px 15px;
-  background-color: #f9f9f9;
+  background-color: var(--task-bg);
   border-radius: 4px;
   margin-bottom: 10px;
   transition: all 0.3s;
 }
 
 .task-item:hover {
-  background-color: #f1f1f1;
+  background-color: var(--task-hover);
 }
 
 .task-checkbox {
@@ -105,16 +145,18 @@ h1 {
 .task-text {
   flex: 1;
   font-size: 16px;
+  color: var(--text-color);
+  transition: color 0.3s;
 }
 
 .completed .task-text {
   text-decoration: line-through;
-  color: #888;
+  color: var(--completed-text);
 }
 
 .delete-task {
   background-color: transparent;
-  color: #e74c3c;
+  color: var(--delete-color);
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -123,7 +165,7 @@ h1 {
 }
 
 .delete-task:hover {
-  color: #c0392b;
+  color: var(--delete-hover);
 }
 
 .task-stats {
@@ -131,17 +173,39 @@ h1 {
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
-  color: #777;
+  color: var(--stats-color);
 }
 
 #clearCompleted {
   background-color: transparent;
   border: none;
-  color: #3498db;
+  color: var(--button-color);
   cursor: pointer;
   transition: color 0.3s;
 }
 
 #clearCompleted:hover {
-  color: #2980b9;
+  color: var(--button-hover);
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--button-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+  background-color: var(--button-hover);
 }
