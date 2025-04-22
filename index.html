@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikacja do zadań</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Moja lista zadań</h1>
+    
+    <div class="task-form">
+      <input type="text" id="taskInput" placeholder="Wpisz nowe zadanie...">
+      <button id="addTask">Dodaj</button>
+    </div>
+    
+    <div class="filters">
+      <button class="filter active" data-filter="all">Wszystkie</button>
+      <button class="filter" data-filter="active">Aktywne</button>
+      <button class="filter" data-filter="completed">Ukończone</button>
+    </div>
+    
+    <ul id="taskList" class="task-list">
+      <!-- Zadania będą dodawane tutaj dynamicznie -->
+    </ul>
+    
+    <div class="task-stats">
+      <span id="taskCount">0 zadań pozostało</span>
+      <button id="clearCompleted">Wyczyść ukończone</button>
+    </div>
+  </div>
+  
+  <script src="js/app.js"></script>
+</body>
+</html>
