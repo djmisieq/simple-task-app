@@ -1,17 +1,21 @@
-# Prosta Aplikacja do Zarządzania Zadaniami
+# Task Manager - Nowoczesna aplikacja do zarządzania zadaniami
 
-To jest prosta aplikacja frontendowa do tworzenia i zarządzania listą zadań, stworzona przy użyciu HTML, CSS i JavaScript.
+Prosta, ale elegancka aplikacja do zarządzania zadaniami z nowoczesnym interfejsem użytkownika i trybem ciemnym. Stworzona przy użyciu HTML, CSS i czystego JavaScript.
+
+![Screenshot aplikacji](https://via.placeholder.com/800x450.png?text=Task+Manager+Screenshot)
 
 ## Funkcjonalności
 
-- Dodawanie nowych zadań
-- Oznaczanie zadań jako ukończone
-- Usuwanie zadań
-- Filtrowanie zadań (wszystkie, aktywne, ukończone)
-- Wyświetlanie liczby pozostałych zadań
-- Czyszczenie ukończonych zadań
-- Lokalne przechowywanie zadań (localStorage)
-- Przełączanie między trybem jasnym i ciemnym (Dark Mode)
+- ✅ Dodawanie nowych zadań na początek listy
+- ✅ Oznaczanie zadań jako ukończone
+- ✅ Usuwanie zadań
+- ✅ Filtrowanie zadań (wszystkie, aktywne, ukończone)
+- ✅ Wyświetlanie liczby pozostałych zadań
+- ✅ Czyszczenie ukończonych zadań
+- ✅ Lokalne przechowywanie zadań (localStorage)
+- ✅ Inteligentny tryb ciemny (respektuje preferencje systemowe)
+- ✅ Responsywny design (działa na urządzeniach mobilnych)
+- ✅ Dostępność (ARIA, semantyczny HTML)
 
 ## Uruchomienie aplikacji
 
@@ -26,30 +30,52 @@ To jest prosta aplikacja frontendowa do tworzenia i zarządzania listą zadań, 
 [![Otwórz w GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=970869557)
 
 1. Kliknij przycisk "Otwórz w GitHub Codespaces" powyżej
-2. Po załadowaniu środowiska, aplikacja zostanie automatycznie uruchomiona na porcie 8080
-3. Kliknij link w powiadomieniu lub przejdź do zakładki "PORTS" i otwórz port 8080
+2. Po załadowaniu środowiska, uruchom jeden z poniższych serwerów w terminalu:
 
-Szczegółowe instrukcje uruchomienia w Codespaces znajdziesz w pliku [CODESPACES.md](CODESPACES.md).
+```bash
+# Z Node.js
+npx http-server -p 8080
+
+# Lub z Python
+python -m http.server 8080
+```
+
+3. Otwórz aplikację w przeglądarce (link pojawi się w konsoli)
+
+## Tryb ciemny (Dark Mode)
+
+Aplikacja automatycznie wykrywa preferencje systemowe i dostosowuje motyw:
+
+- 🌙 Jeśli Twój system jest ustawiony na tryb ciemny, aplikacja również będzie w trybie ciemnym
+- ☀️ Możesz ręcznie przełączać tryb klikając ikonę księżyca/słońca w prawym górnym rogu
+- 💾 Twój wybór jest zapamiętywany w lokalnej pamięci przeglądarki
+
+## Obsługa z klawiatury
+
+- `Enter` w polu input dodaje nowe zadanie
+- `Tab` umożliwia nawigację między elementami interfejsu
+- Checkbox tasks można zaznaczać za pomocą klawiatury (spacja po wybraniu checkboxa)
 
 ## Struktura projektu
 
 ```
 ├── index.html           # Główny plik HTML
 ├── css/
-│   └── style.css        # Style CSS
+│   └── style.css        # Style CSS z zmiennymi dla trybu ciemnego
 ├── js/
 │   └── app.js           # Logika aplikacji w JavaScript
 ├── .devcontainer/       # Konfiguracja dla GitHub Codespaces
 └── README.md            # Ten plik README
 ```
 
-## Obsługa Dark Mode
+## Technologie
 
-Aplikacja posiada wbudowany przełącznik między trybem jasnym i ciemnym:
-
-- Kliknij ikonę księżyca w prawym górnym rogu, aby włączyć tryb ciemny
-- Kliknij ikonę słońca, aby wrócić do trybu jasnego
-- Wybrany tryb zostanie zapamiętany nawet po odświeżeniu strony
+- HTML5 semantyczny
+- CSS3 z zmiennymi CSS (custom properties)
+- Vanilla JavaScript (ES6+)
+- Font Awesome dla ikon
+- Google Fonts (Inter)
+- LocalStorage API
 
 ## Rozwój projektu
 
@@ -59,6 +85,7 @@ Możliwe usprawnienia na przyszłość:
 - Dodanie kategorii/tagów
 - Powiadomienia o terminach
 - Synchronizacja z backendem
+- Dodanie animacji i przejść
 
 ## Licencja
 
