@@ -11,6 +11,7 @@ To jest prosta aplikacja frontendowa do tworzenia i zarządzania listą zadań, 
 - Wyświetlanie liczby pozostałych zadań
 - Czyszczenie ukończonych zadań
 - Lokalne przechowywanie zadań (localStorage)
+- Przełączanie między trybem jasnym i ciemnym (Dark Mode)
 
 ## Uruchomienie aplikacji
 
@@ -41,6 +42,14 @@ Szczegółowe instrukcje uruchomienia w Codespaces znajdziesz w pliku [CODESPACE
 ├── .devcontainer/       # Konfiguracja dla GitHub Codespaces
 └── README.md            # Ten plik README
 ```
+
+## Obsługa Dark Mode
+
+Aplikacja posiada wbudowany przełącznik między trybem jasnym i ciemnym:
+
+- Kliknij ikonę księżyca w prawym górnym rogu, aby włączyć tryb ciemny
+- Kliknij ikonę słońca, aby wrócić do trybu jasnego
+- Wybrany tryb zostanie zapamiętany nawet po odświeżeniu strony
 
 ## Rozwój projektu
 
