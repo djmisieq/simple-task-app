@@ -9,14 +9,30 @@ Ta instrukcja zawiera krok po kroku, jak uruchomić aplikację Task App z poziom
 3. Wybierz zakładkę **Codespaces**
 4. Kliknij przycisk **Create codespace on main**
 
-## Krok 2: Korzystanie z terminala
+## Krok 2: Pobranie najnowszych zmian z repozytorium GitHub
+
+Aby upewnić się, że masz najnowszą wersję kodu, wykonaj w terminalu:
+
+```bash
+# Pobierz najnowsze zmiany z repozytorium
+git pull origin main
+```
+
+Jeśli otrzymasz komunikat o konfliktach, możesz wykonać:
+
+```bash
+# Odrzuć lokalne zmiany i zastosuj zmiany z repozytorium
+git reset --hard origin/main
+```
+
+## Krok 3: Korzystanie z terminala
 
 Po załadowaniu Codespaces, zobaczysz interfejs Visual Studio Code z terminalem na dole. Jeśli terminal nie jest widoczny:
 
 1. Naciśnij kombinację klawiszy `Ctrl+` (lub `Cmd+` na macOS)
 2. Lub wybierz z menu: **Terminal** -> **New Terminal**
 
-## Krok 3: Uruchomienie serwera HTTP z terminala
+## Krok 4: Uruchomienie serwera HTTP z terminala
 
 W terminalu możesz użyć jednej z następujących komend, aby uruchomić serwer HTTP:
 
@@ -47,7 +63,7 @@ chmod +x .devcontainer/start-server.sh
 .devcontainer/start-server.sh
 ```
 
-## Krok 4: Dostęp do aplikacji
+## Krok 5: Dostęp do aplikacji
 
 Po uruchomieniu serwera w terminalu:
 
