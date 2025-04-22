@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleTheme() {
     const isDarkMode = document.body.classList.contains('dark-mode');
     setTheme(!isDarkMode);
-    localStorage.setItem('darkMode', !isDarkMode);
+    localStorage.setItem('darkMode', (!isDarkMode).toString());
   }
   
   function setTheme(isDarkMode) {
