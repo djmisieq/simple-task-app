@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplikacja do zadań</title>
+  <title>Task Manager</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <button id="themeToggle" class="theme-toggle" title="Przełącz motyw ciemny/jasny">
-    <i class="fas fa-moon"></i>
-  </button>
-  
   <div class="container">
-    <h1>Moja lista zadań</h1>
+    <div class="app-header">
+      <h1>Moja Lista Zadań</h1>
+      <button id="themeToggle" class="theme-toggle" aria-label="Przełącz tryb ciemny/jasny">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
     
     <div class="task-form">
-      <input type="text" id="taskInput" placeholder="Wpisz nowe zadanie...">
-      <button id="addTask">Dodaj</button>
+      <input type="text" id="taskInput" placeholder="Dodaj nowe zadanie..." aria-label="Treść zadania">
+      <button id="addTask">
+        <i class="fas fa-plus"></i> Dodaj
+      </button>
     </div>
     
     <div class="filters">
@@ -29,6 +35,10 @@
     <ul id="taskList" class="task-list">
       <!-- Zadania będą dodawane tutaj dynamicznie -->
     </ul>
+    
+    <div id="noTasks" class="no-tasks" style="display: none;">
+      <p>Brak zadań do wyświetlenia</p>
+    </div>
     
     <div class="task-stats">
       <span id="taskCount">0 zadań pozostało</span>
