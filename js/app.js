@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterBtns = document.querySelectorAll('.filter');
   const themeToggleBtn = document.getElementById('themeToggle');
   const themeIcon = themeToggleBtn.querySelector('i');
+  const noTasksEl = document.getElementById('noTasks');
   
   // Stan aplikacji
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   let currentFilter = 'all';
-  let darkMode = localStorage.getItem('darkMode') === 'true';
   
   // Inicjalizacja aplikacji
+  initTheme();
   renderTasks();
   updateTaskCount();
-  initializeTheme();
   
   // Obsługa wydarzeń
   addTaskBtn.addEventListener('click', addTask);
@@ -26,11 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   taskList.addEventListener('click', (e) => {
-    const taskId = e.target.closest('.task-item')?.dataset.id;
+    const taskItem = e.target.closest('.task-item');
+    if (!taskItem) return;
+    
+    const taskId = taskItem.dataset.id;
     
     if (e.target.classList.contains('task-checkbox')) {
       toggleTaskStatus(taskId);
-    } else if (e.target.classList.contains('delete-task')) {
+    } else if (e.target.classList.contains('delete-task') || e.target.parentElement.classList.contains('delete-task')) {
       deleteTask(taskId);
     }
   });
@@ -60,8 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         createdAt: new Date().toISOString()
       };
       
-      tasks.push(newTask);
-      saveToLocalStorage();
+      tasks.unshift(newTask); // Dodawanie na początek listy
+      saveTasksToLocalStorage();
       renderTasks();
       updateTaskCount();
       taskInput.value = '';
@@ -77,21 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
       return task;
     });
     
-    saveToLocalStorage();
+    saveTasksToLocalStorage();
     renderTasks();
     updateTaskCount();
   }
   
   function deleteTask(taskId) {
     tasks = tasks.filter(task => task.id !== taskId);
-    saveToLocalStorage();
+    saveTasksToLocalStorage();
     renderTasks();
     updateTaskCount();
   }
   
   function clearCompleted() {
     tasks = tasks.filter(task => !task.completed);
-    saveToLocalStorage();
+    saveTasksToLocalStorage();
     renderTasks();
     updateTaskCount();
   }
@@ -107,54 +110,86 @@ document.addEventListener('DOMContentLoaded', () => {
     
     taskList.innerHTML = '';
     
-    filteredTasks.forEach(task => {
-      const taskItem = document.createElement('li');
-      taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
-      taskItem.dataset.id = task.id;
+    if (filteredTasks.length === 0) {
+      noTasksEl.style.display = 'block';
+    } else {
+      noTasksEl.style.display = 'none';
       
-      taskItem.innerHTML = `
-        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
-        <span class="task-text">${task.text}</span>
-        <button class="delete-task">&times;</button>
-      `;
-      
-      taskList.appendChild(taskItem);
-    });
+      filteredTasks.forEach(task => {
+        const taskItem = document.createElement('li');
+        taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
+        taskItem.dataset.id = task.id;
+        
+        taskItem.innerHTML = `
+          <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} aria-label="Oznacz zadanie jako ${task.completed ? 'nieukończone' : 'ukończone'}">
+          <span class="task-text">${escapeHTML(task.text)}</span>
+          <button class="delete-task" aria-label="Usuń zadanie">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        
+        taskList.appendChild(taskItem);
+      });
+    }
   }
   
   function updateTaskCount() {
     const activeTasksCount = tasks.filter(task => !task.completed).length;
-    taskCount.textContent = `${activeTasksCount} zadań pozostało`;
+    const taskText = activeTasksCount === 1 ? 'zadanie pozostało' : 'zadań pozostało';
+    taskCount.textContent = `${activeTasksCount} ${taskText}`;
+    clearCompletedBtn.style.display = tasks.some(task => task.completed) ? 'block' : 'none';
   }
   
-  function saveToLocalStorage() {
+  function saveTasksToLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
   
-  function initializeTheme() {
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-      themeIcon.classList.remove('fa-moon');
-      themeIcon.classList.add('fa-sun');
-    } else {
-      document.body.classList.remove('dark-mode');
-      themeIcon.classList.remove('fa-sun');
-      themeIcon.classList.add('fa-moon');
+  function initTheme() {
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const savedTheme = localStorage.getItem('darkMode');
+    
+    // Jeśli mamy zapisany motyw, używamy go
+    if (savedTheme !== null) {
+      const isDarkMode = savedTheme === 'true';
+      setTheme(isDarkMode);
+    } 
+    // W przeciwnym razie używamy preferencji systemowych
+    else if (prefersDarkScheme.matches) {
+      setTheme(true);
     }
+    
+    // Nasłuchujemy zmian preferencji systemowych
+    prefersDarkScheme.addEventListener('change', (e) => {
+      // Aktualizujemy tylko jeśli użytkownik nie ustawił konkretnego motywu
+      if (localStorage.getItem('darkMode') === null) {
+        setTheme(e.matches);
+      }
+    });
   }
   
   function toggleTheme() {
-    darkMode = !darkMode;
-    localStorage.setItem('darkMode', darkMode);
-    
-    if (darkMode) {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    setTheme(!isDarkMode);
+    localStorage.setItem('darkMode', !isDarkMode);
+  }
+  
+  function setTheme(isDarkMode) {
+    if (isDarkMode) {
       document.body.classList.add('dark-mode');
-      themeIcon.classList.remove('fa-moon');
-      themeIcon.classList.add('fa-sun');
+      themeIcon.className = 'fas fa-sun';
     } else {
       document.body.classList.remove('dark-mode');
-      themeIcon.classList.remove('fa-sun');
-      themeIcon.classList.add('fa-moon');
+      themeIcon.className = 'fas fa-moon';
     }
+  }
+  
+  // Funkcja pomocnicza do zabezpieczania przed XSS
+  function escapeHTML(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 });
